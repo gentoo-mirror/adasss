@@ -17,7 +17,6 @@ QA_PREBUILT="
 	opt/${PN}/plugins/android/resources/installer/*/*
 	opt/${PN}/plugins/android/resources/native/*
 	opt/${PN}/plugins/android/resources/perfetto/*/*
-	opt/${PN}/plugins/android/resources/screen-sharing-agent/*/*
 	opt/${PN}/plugins/android/resources/simpleperf/*/*
 	opt/${PN}/plugins/android/resources/trace_processor_daemon/*
 	opt/${PN}/plugins/android/resources/transport/*/*
@@ -78,7 +77,7 @@ src_install() {
 	insinto "${dir}"
 	doins -r *
 
-	fperms 755 "${dir}"/bin/{fsnotifier,format.sh,game-tools.sh,inspect.sh,ltedit.sh,profiler.sh,remote-dev-server.sh,studio.sh,printenv.py,restart.py}
+	fperms 755 "${dir}"/bin/{fsnotifier,format.sh,game-tools.sh,inspect.sh,ltedit.sh,profiler.sh,studio.sh,printenv.py,restart.py}
 	fperms -R 755 "${dir}"/bin/{helpers,lldb}
 	fperms -R 755 "${dir}"/jre/bin
 	fperms 755 "${dir}"/jre/lib/{jexec,jspawnhelper}
@@ -95,7 +94,7 @@ src_install() {
 
 	newicon "bin/studio.png" "${PN}.png"
 	make_wrapper ${PN} ${dir}/bin/studio.sh
-	make_desktop_entry ${PN} "Android Studio Canary" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
+	make_desktop_entry ${PN} "Android Studio Beta" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
 }
 
 pkg_postinst() {
@@ -107,14 +106,15 @@ pkg_postinst() {
 	elog ""
 	elog "line:"
 	elog ""
-	elog "    /dev-util/android-studio-canary-2021.3.1.5"
+	elog "    /dev-util/android-studio-beta-2021.2.1.11"
 	elog ""
 }
 
 pkg_postrm() {
 	elog "Android studio data files were not removed."
-	elog "If there will be no other programs using them anymore,"
-	elog "remove manually folders:"
+	elog "If there will be no other programs using them anymore"
+	elog "(especially another flavor of Android Studio)"
+	elog " remove manually following folders:"
 	elog ""
 	elog "		~/.android/"
 	elog "		~/.config/Google/AndroidStudio*/"
