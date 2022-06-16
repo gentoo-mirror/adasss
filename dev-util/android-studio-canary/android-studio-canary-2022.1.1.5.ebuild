@@ -5,7 +5,7 @@ EAPI=8
 
 inherit desktop wrapper
 
-RESTRICT="strip"
+RESTRICT="bindist mirror strip"
 
 QA_PREBUILT="
 	opt/${PN}/bin/*
@@ -80,10 +80,10 @@ src_install() {
 	insinto "${dir}"
 	doins -r *
 
-	fperms 755 "${dir}"/bin/{fsnotifier,format.sh,game-tools.sh,inspect.sh,ltedit.sh,profiler.sh,remote-dev-server.sh,studio.sh,printenv.py,restart.py}
+	fperms 755 "${dir}"/bin/{fsnotifier,format.sh,game-tools.sh,inspect.sh,ltedit.sh,profiler.sh,remote-dev-server.sh,restart.py,studio.sh}
 	fperms -R 755 "${dir}"/bin/{helpers,lldb}
-	fperms -R 755 "${dir}"/jre/bin
-	fperms 755 "${dir}"/jre/lib/{jexec,jspawnhelper}
+	fperms -R 755 "${dir}"/jbr/bin
+	fperms 755 "${dir}"/jbr/lib/{jexec,jspawnhelper}
 	fperms -R 755 "${dir}"/plugins/Kotlin/kotlinc/bin
 	fperms -R 755 "${dir}"/plugins/android/resources/installer
 	fperms -R 755 "${dir}"/plugins/android/resources/perfetto
@@ -97,7 +97,7 @@ src_install() {
 
 	newicon "bin/studio.png" "${PN}.png"
 	make_wrapper ${PN} ${dir}/bin/studio.sh
-	make_desktop_entry ${PN} "Android Studio Beta" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
+	make_desktop_entry ${PN} "Android Studio Canary" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
 }
 
 #pkg_postinst() {
