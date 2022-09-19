@@ -11,4 +11,4 @@ RESTRICT=bindist mirror strip
 SLOT=0
 SRC_URI=https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2021.3.1.16/android-studio-2021.3.1.16-linux.tar.gz
 _eclasses_=desktop	22952d8f27cac191d75529d4c38e6bfa	wrapper	4a1902f969e5718126434fc35f3a0d9c
-_md5_=9179fcd84bab6e66dd100965b7f22847
+_md5_=ffc750396e29ca5caa072418cfb5675f
