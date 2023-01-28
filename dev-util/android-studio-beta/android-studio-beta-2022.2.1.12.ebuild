@@ -9,10 +9,10 @@ RESTRICT="bindist mirror strip"
 
 QA_PREBUILT="
 	opt/${PN}/bin/*
-	opt/${PN}/jre/bin/*
-	opt/${PN}/jre/lib/*
-	opt/${PN}/jre/lib/jli/*
-	opt/${PN}/jre/lib/server/*
+	opt/${PN}/jbr/bin/*
+	opt/${PN}/jbr/lib/*
+	opt/${PN}/jbr/lib/jli/*
+	opt/${PN}/jbr/lib/server/*
 	opt/${PN}/lib/pty4j-native/linux/*/*
 	opt/${PN}/plugins/android/resources/installer/*/*
 	opt/${PN}/plugins/android/resources/native/*
@@ -96,7 +96,7 @@ src_install() {
 
 	newicon "bin/studio.png" "${PN}.png"
 	make_wrapper ${PN} ${dir}/bin/studio.sh
-	make_desktop_entry ${PN} "Android Studio Canary" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
+	make_desktop_entry ${PN} "Android Studio Beta" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
 }
 
 pkg_postrm() {
