@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,7 +19,7 @@ QA_PREBUILT="
 	opt/${PN}/plugins/android/resources/installer/*/*
 	opt/${PN}/plugins/android/resources/native/*
 	opt/${PN}/plugins/android/resources/perfetto/*/*
-	opt/${PN}/process-tracker-agent/native/*/*
+	opt/${PN}/plugins/android/resources/process-tracker-agent/native/*/*
 	opt/${PN}/plugins/android/resources/screen-sharing-agent/*/*
 	opt/${PN}/plugins/android/resources/simpleperf/*/*
 	opt/${PN}/plugins/android/resources/trace_processor_daemon/*
@@ -88,7 +88,7 @@ src_install() {
 	insinto "${dir}"
 	doins -r *
 
-	fperms 755 "${dir}"/bin/{fsnotifier,restarter,format.sh,game-tools.sh,inspect.sh,ltedit.sh,profiler.sh,studio.sh,studio_safe.sh}
+	fperms 755 "${dir}"/bin/{fsnotifier,format.sh,game-tools.sh,inspect.sh,ltedit.sh,profiler.sh,restart.py,studio.sh}
 	fperms -R 755 "${dir}"/bin/{helpers,lldb}
 	fperms -R 755 "${dir}"/jbr/bin
 	fperms 755 "${dir}"/jbr/lib/{jexec,jspawnhelper}
@@ -103,12 +103,12 @@ src_install() {
 
 	newicon "bin/studio.png" "${PN}.png"
 	make_wrapper ${PN} ${dir}/bin/studio.sh
-	make_desktop_entry ${PN} "Android Studio Canary" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
+	make_desktop_entry ${PN} "Android Studio Beta" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
 
 	# https://developer.android.com/studio/command-line/variables
-	newenvd - 99android-studio-canary <<-EOF
-		# Configuration file android-studio-canary
-		STUDIO_JDK_CANARY="${dir}/jbr"
+	newenvd - 99android-studio-beta <<-EOF
+		# Configuration file android-studio-beta
+		STUDIO_JDK_BETA="${dir}/jbr"
 	EOF
 }
 
