@@ -28,7 +28,7 @@ QA_PREBUILT="
 	opt/${PN}/plugins/android-ndk/resources/lldb/lib/*
 	opt/${PN}/plugins/android-ndk/resources/lldb/lib/python3.10/lib-dynload/*
 	opt/${PN}/plugins/android-ndk/resources/lldb/lib64/*
-	opt/${PN}/plugins/c-clangd-plugin/bin/clang/linux/x64/*
+	opt/${PN}/plugins/c-clangd-plugin/bin/clang/linux/x64/bin/*
 	opt/${PN}/plugins/design-tools/resources/layoutlib/data/linux/lib64/*
 	opt/${PN}/plugins/webp/lib/libwebp/linux/*
 "
@@ -50,12 +50,15 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
-IUSE="selinux"
+IUSE="experimental selinux wayland"
+
+REQUIRED_USE="experimental? ( wayland )"
 
 RESTRICT="bindist mirror strip"
 
 RDEPEND="
 	selinux? ( sec-policy/selinux-android )
+	wayland? ( dev-libs/wayland )
 	>=app-arch/bzip2-1.0.8-r4
 	>=dev-libs/expat-2.5.0
 	>=dev-libs/libffi-3.4.4
@@ -106,16 +109,24 @@ src_install() {
 	fperms -R 755 "${dir}"/plugins/android/resources/trace_processor_daemon
 	fperms -R 755 "${dir}"/plugins/android/resources/transport/{arm64-v8a,armeabi-v7a,x86,x86_64}
 	fperms -R 755 "${dir}"/plugins/android-ndk/resources/lldb/{android,bin,lib,shared}
-	fperms 755 "${dir}"/plugins/c-clangd-plugin/bin/clang/linux/x64/clangd
+	fperms 755 "${dir}"/plugins/c-clangd-plugin/bin/clang/linux/x64/bin/clangd
 
 	newicon "bin/studio.png" "${PN}.png"
-	make_wrapper ${PN} ${dir}/bin/studio
-	make_desktop_entry ${PN} "Android Studio Beta" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
+
+	if use experimental; then
+		make_wrapper ${PN} "${dir}/bin/studio -Dawt.toolkit.name=WLToolkit"
+		ewarn "You have enabled the experimental USE flag."
+		ewarn "This is a Wayland support preview. Expect instability."
+	else
+		make_wrapper ${PN} ${dir}/bin/studio
+	fi
+
+	make_desktop_entry ${PN} "Android Studio Canary" ${PN} "Development;IDE" "StartupWMClass=jetbrains-studio"
 
 	# https://developer.android.com/studio/command-line/variables
-	newenvd - 99android-studio-beta <<-EOF
-		# Configuration file android-studio-beta
-		STUDIO_JDK_BETA="${dir}/jbr"
+	newenvd - 99android-studio-canary <<-EOF
+		# Configuration file android-studio-canary
+		STUDIO_JDK_CANARY="${dir}/jbr"
 	EOF
 }
 
