@@ -11,6 +11,6 @@ RDEPEND=selinux? ( sec-policy/selinux-android ) wayland? ( dev-libs/wayland ) >=
 REQUIRED_USE=experimental? ( wayland )
 RESTRICT=bindist mirror strip
 SLOT=0
-SRC_URI=https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2024.3.1.11/android-studio-2024.3.1.11-linux.tar.gz
+SRC_URI=https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2024.3.1.12/android-studio-2024.3.1.12-linux.tar.gz
 _eclasses_=desktop	3a72ffe0d8e1dd73af3a1c8c15a59fed	wrapper	11a2a3bd712784986679b60a0cab34a0
-_md5_=e869ad44482e0301b78a28715f149304
+_md5_=3d95c5fe9e03a3dfba6ff99ebce8cb80
